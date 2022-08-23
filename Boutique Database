@@ -1,0 +1,33 @@
+--Create a boutique store database
+
+CREATE TABLE boutique (id INTEGER, item TEXT, sizes INTEGER, price REAL, colors INTEGER, total_items_sold INTEGER);
+
+INSERT INTO boutique (id, item, sizes, price, colors, total_items_sold) VALUES (1, "Halter Dress", 5, 55.55, 4, 30);
+INSERT INTO boutique (id, item, sizes, price, colors, total_items_sold) VALUES (2, "Long Skirt", 3, 49.99, 5, 23);
+INSERT INTO boutique (id, item, sizes, price, colors, total_items_sold) VALUES (3, "Boho Blouse", 7, 45.50, 6, 55);
+INSERT INTO boutique (id, item, sizes, price, colors, total_items_sold) VALUES (4, "Tracksuit", 8, 75.00, 3, 77);
+INSERT INTO boutique (id, item, sizes, price, colors, total_items_sold) VALUES (5, "Backless Dress", 5, 65.00, 3, 86);
+INSERT INTO boutique (id, item, sizes, price, colors, total_items_sold) VALUES (6, "Tank Top", 7, 35.50, 10, 20);
+INSERT INTO boutique (id, item, sizes, price, colors, total_items_sold) VALUES (7, "Sun Hat", 1, 65.00, 3, 48);
+INSERT INTO boutique (id, item, sizes, price, colors, total_items_sold) VALUES (8, "Striped Blouse", 7, 35.50, 2, 37);
+INSERT INTO boutique (id, item, sizes, price, colors, total_items_sold) VALUES (9, "Romper", 5, 45.00, 3, 45);
+INSERT INTO boutique (id, item, sizes, price, colors, total_items_sold) VALUES (10, "Short Skirt", 3, 35.99, 5, 34);
+INSERT INTO boutique (id, item, sizes, price, colors, total_items_sold) VALUES (11, "Dangle Earrings", 1, 23.99, 15, 58);
+INSERT INTO boutique (id, item, sizes, price, colors, total_items_sold) VALUES (12, "Silver Hoop Earrings", 1, 55.00, 1, 49);
+INSERT INTO boutique (id, item, sizes, price, colors, total_items_sold) VALUES (13, "Gold Hoop Earrings", 1, 55.00, 1, 35);
+INSERT INTO boutique (id, item, sizes, price, colors, total_items_sold) VALUES (14, "Scarves", 1, 38.99, 25, 24);
+INSERT INTO boutique (id, item, sizes, price, colors, total_items_sold) VALUES (15, "Rings", 4, 40.00, 30, 35);
+
+--display boutique database by price
+
+SELECT * FROM boutique ORDER BY price
+
+--What is the total amount of items sold in the boutique?
+SELECT SUM(price);
+FROM boutique;
+
+--What are the 3 most popular items?
+SELECT item, price, total_items_sold
+FROM boutique
+order by total_items_sold desc
+limit 3;
