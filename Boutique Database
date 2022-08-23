@@ -1,4 +1,4 @@
---Create a boutique store database
+#Create a boutique store database
 
 CREATE TABLE boutique (id INTEGER, item TEXT, sizes INTEGER, price REAL, colors INTEGER, total_items_sold INTEGER);
 
