@@ -1,0 +1,54 @@
+--Create table of singers and their age
+CREATE TABLE singers 
+    (id INTEGER PRIMARY KEY AUTOINCREMENT,
+    fullname TEXT,
+    age INTEGER);
+    
+INSERT INTO singers (fullname, age) VALUES ("Jennifer Lopez", "53");
+INSERT INTO singers (fullname, age) VALUES ("Beyonce", "40");
+INSERT INTO singers (fullname, age) VALUES ("Bad Bunny", "28");
+INSERT INTO singers (fullname, age) VALUES ("Lindsey Stirling", "35");
+INSERT INTO singers (fullname, age) VALUES ("Phil Lesh", "82");
+INSERT INTO singers (fullname, age) VALUES ("Eddie Vedder", "57");
+INSERT INTO singers (fullname, age) VALUES ("Stevie Nicks", "74");
+INSERT INTO singers (fullname, age) VALUES ("Jay Z", "52");
+INSERT INTO singers (fullname, age) VALUES ("Lil Wayne", "39");
+INSERT INTO singers (fullname, age) VALUES ("Megan Thee Stallion", "27");
+INSERT INTO singers (fullname, age) VALUES ("Rihanna", "34");
+
+--Create table of details of singers
+CREATE table details
+    (id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
+    birth_place TEXT,
+    married TEXT,
+    children INTEGER,
+    top_song TEXT);
+
+INSERT INTO details (name, birth_place, married, children, top_song) VALUES ("Jennifer Lopez", "Castle Hill, New York", "Yes", "2", "Jenny From The Block");
+INSERT INTO details (name, birth_place, married, children, top_song) VALUES ("Beyonce", "Houston, Texas", "Yes", "3", "Break My Soul");
+INSERT INTO details (name, birth_place, married, children, top_song) VALUES ("Bad Bunny", "Puerto Rico", "Yes", "0", "Me Porto Bonito");
+INSERT INTO details (name, birth_place, married, children, top_song) VALUES ("Lindsey Stirling", "Santa Ana, California", "No", "0", "Crystallize");
+INSERT INTO details (name, birth_place, married, children, top_song) VALUES ("Phil Lesh", "Berkeley, California", "Yes", "2", "Box of Rain");
+INSERT INTO details (name, birth_place, married, children, top_song) VALUES ("Eddie Vedder", "Evanston, Illinois", "Yes", "2", "Hard Sun");
+INSERT INTO details (name, birth_place, married, children, top_song) VALUES ("Stevie Nicks", "Phoenix, Arizonia", "No", "0", "Rhiannon");
+INSERT INTO details (name, birth_place, married, children, top_song) VALUES ("Jay Z", "Brooklyn, New York", "Yes", "3", "Crazy In Love");
+INSERT INTO details (name, birth_place, married, children, top_song) VALUES ("Lil Wayne", "New Orleans", "No", "4", "A Mili");
+INSERT INTO details (name, birth_place, married, children, top_song) VALUES ("Megan Thee Stallion", "San Antonio, Texas", "No", "0", "Savage");
+INSERT INTO details (name, birth_place, married, children, top_song) VALUES ("Rihanna", "Barbados", "No", "1", "We Found Love");
+
+
+--View the singers table
+SELECT *
+FROM singers;
+
+--View the details table
+SELECT *
+FROM details;
+
+--Join singers table and details table
+SELECT name, age, birth_place, married, children, top_song
+FROM details
+JOIN singers
+ON singers.fullname = details.name
+ORDER BY name;
