@@ -18,8 +18,7 @@ INSERT INTO boutique (id, item, sizes, price, colors, total_items_sold) VALUES (
 INSERT INTO boutique (id, item, sizes, price, colors, total_items_sold) VALUES (14, "Scarves", 1, 38.99, 25, 24);
 INSERT INTO boutique (id, item, sizes, price, colors, total_items_sold) VALUES (15, "Rings", 4, 40.00, 30, 35);
 
---display boutique database by price
-
+--Display boutique database by price
 SELECT * FROM boutique ORDER BY price
 
 --What is the total amount of items sold in the boutique?
