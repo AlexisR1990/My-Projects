@@ -17,7 +17,7 @@ INSERT INTO singers (fullname, age) VALUES ("Megan Thee Stallion", "27");
 INSERT INTO singers (fullname, age) VALUES ("Rihanna", "34");
 
 --Create table of details of singers
-CREATE table details
+CREATE TABLE details
     (id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT,
     birth_place TEXT,
