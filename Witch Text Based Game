@@ -1,5 +1,5 @@
 # Alexis Tolliver
-# This is a game I created! Enjoy!
+
 
 # Define new function which includes a greeting, instructions, command list, and inventory list
 def welcome_instructions():
