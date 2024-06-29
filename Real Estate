@@ -3,7 +3,6 @@
 
 
 
-
 # Preparing data
 housing <- read.csv(file="housing_v2.csv", header=TRUE, sep=",")
 
