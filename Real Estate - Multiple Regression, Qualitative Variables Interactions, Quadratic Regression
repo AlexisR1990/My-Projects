@@ -1,0 +1,188 @@
+# This is my analysis of the relationship between different attributes of a house and it's selling price using 
+# multiple regression models, qualitative variables interactions, and quadratic regression models
+
+
+
+# Preparing data
+housing <- read.csv(file="housing_v2.csv", header=TRUE, sep=",")
+
+# converting appropriate variables to factors  
+housing <- within(housing, {
+   view <- factor(view)
+   backyard <- factor(backyard)
+})
+
+# number of columns
+ncol(housing)
+
+# number of rows
+nrow(housing)
+
+
+
+# Create scatter plot of living area against price
+plot(housing$price, housing$sqft_living, 
+     main = "Scatterplot of Living Area against Price",
+     xlab = "Living Area", ylab = "Price",
+     col="red", 
+     pch = 19, frame = FALSE)
+
+# Create scatter plot of age against price
+plot(housing$price, housing$age, 
+     main = "Scatterplot of Age against Price",
+     xlab = "Age", ylab = "Price",
+     col="purple", 
+     pch = 19, frame = FALSE)
+
+
+
+# Selecting price, sqft_living, and age to subset data
+myvars <- c("price", "sqft_living", "age")
+housing_subset <- housing[myvars]
+
+# Print the correlation matrix
+print("cor")
+corr_matrix <- cor(housing_subset, method = "pearson")
+round(corr_matrix, 4)
+
+
+
+# Create subset
+myvars <- c("price", "sqft_living", "sqft_above", "age", "bathrooms", "view")
+housing_subset <- housing[myvars]
+
+# Create regression model
+model <- lm(price ~ sqft_living + sqft_above + age + bathrooms + view, data=housing_subset)
+summary(model)
+
+
+
+# Obtain fitted values
+fitted_values <- fitted.values(model) 
+fitted_values
+
+# Obtain residuals
+residuals <- residuals(model)
+residuals
+
+
+
+# Create scatter plot of residuals against fitted values
+plot(fitted_values, residuals, 
+     main = "Residuals against Fitted Values",
+     xlab = "Fitted Values", ylab = "Residuals",
+     col="dark green", 
+     pch = 19, frame = FALSE)
+
+# Create qqnorm plot
+qqnorm(residuals, pch = 19, col="red", frame = FALSE)
+qqline(residuals, col = "blue", lwd = 2)
+
+
+
+# Add new data
+newdata <- data.frame(sqft_living=2150, sqft_above=1050, age=15, bathrooms=3, view='0')
+
+# Prediciton for home with 2150 sqft living area, 1050 sqft upper level living area, 15 years old, 3 bathrooms, and road view
+print("prediction interval")
+prediction_pred_int <- predict(model, newdata, interval="predict", level=0.90) 
+round(prediction_pred_int, 4)
+
+# Confidence for home with 2150 sqft living area, 1050 sqft upper level living area, 15 years old, 3 bathrooms, and road view
+print("confidence interval")
+prediction_conf_int <- predict(model, newdata, interval="confidence", level=0.90) 
+round(prediction_conf_int, 4)
+
+
+
+# Add new data
+newdata <- data.frame(sqft_living=4250, sqft_above=2100, age=5, bathrooms=5, view='2')
+
+# Prediciton for home with 4250 sqft living area, 2100 sqft upper level living area, 5 years old, 5 bathrooms, and lake view
+print("prediction interval")
+prediction_pred_int <- predict(model, newdata, interval="predict", level=0.90) 
+round(prediction_pred_int, 4)
+
+# Confidence for home with 4250 sqft living area, 2100 sqft upper level living area, 5 years old, 5 bathrooms, and lake view
+print("confidence interval")
+prediction_conf_int <- predict(model, newdata, interval="confidence", level=0.90) 
+round(prediction_conf_int, 4)
+
+
+
+# Complete Second Order Regression Model with Quantitative Variables
+# Create scatterplot of school rating against price
+plot(housing$price, housing$school_rating, 
+     main = "Scatterplot of School Rating against Price",
+     xlab = "School Rating", ylab = "Price",
+     col="red", 
+     pch = 19, frame = FALSE)
+
+# Create scatterplot of crime rate against price
+plot(housing$price, housing$crime, 
+     main = "Scatterplot of Crime Rate against Price",
+     xlab = "Crime Rate per 100,000 people", ylab = "Price",
+     col="dark green", 
+     pch = 19, frame = FALSE)
+
+
+
+# Create new subset 
+myvars <- c("price", "school_rating", "crime")
+housing_subset2 <- housing[myvars]
+
+# Create second order model
+model2 <- lm(price ~ school_rating + crime + school_rating:crime + I(school_rating^2) + I(crime^2), data=housing_subset2)
+summary(model2)
+
+
+
+# Obatain fitted values
+fitted_values <- fitted.values(model2) 
+fitted_values
+
+# Obtain residuals
+residuals <- residuals(model2)
+residuals
+
+
+
+# Create scatterplot of residuals against fitted values
+plot(fitted_values, residuals, 
+     main = "Residuals against Fitted Values",
+     xlab = "Fitted Values", ylab = "Residuals",
+     col="dark green", 
+     pch = 19, frame = FALSE)
+
+# Create qqnorm plot
+qqnorm(residuals, pch = 19, col="red", frame = FALSE)
+qqline(residuals, col = "blue", lwd = 2)
+
+
+
+# Add new data
+newdata <- data.frame(school_rating=9.80, crime=81.02)
+
+# Prediciton for home with school rating of 9.80 and crime rate at 81.02
+print("prediction interval")
+prediction_pred_int <- predict(model2, newdata, interval="predict", level=0.90) 
+round(prediction_pred_int, 4)
+
+# Confidence for home with school rating of 9.80 and crime rate at 81.02
+print("confidence interval")
+prediction_conf_int <- predict(model2, newdata, interval="confidence", level=0.90) 
+round(prediction_conf_int, 4)
+
+
+
+# Nested Models F-test
+# Create subset
+print("Nested Model")
+myvars <- c("price", "school_rating", "crime")
+housing_subset2 <- housing[myvars]
+
+# Create nested model
+nested_model <- lm(price ~ school_rating + crime + school_rating:crime , data=housing_subset2)
+summary(nested_model)
+
+anova(model2, nested_model)
