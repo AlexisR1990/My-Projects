@@ -1,4 +1,7 @@
-# This is my analysis of a person's risk of heart disease based on specific factors
+# This is my analysis of a person's risk of heart disease based on specific factors 
+# using Logistic Regression and Random Forests
+
+
 
 # Install R packages
 print("This step will first install three R packages. Please wait until the packages are fully installed.")
